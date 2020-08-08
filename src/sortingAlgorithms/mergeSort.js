@@ -18,6 +18,7 @@ export async function mergeSort(arr, begin, end) {
 
 /* IN-PLACE MERGE */
 export async function merge(arr, begin, middle, end) {
+   ///comment
    let left = arr.slice(begin, middle);
    console.log(left);
    let i = begin;
