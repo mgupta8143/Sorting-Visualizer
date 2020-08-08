@@ -1,0 +1,49 @@
+html, body, #root, .row {
+    height: 100%;
+}
+
+body {
+    background-color: #222;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+#status {
+    position: absolute;
+    color: white;
+    text-align: center;
+}
+
+#sortList {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+#navbar {
+    background-color: white;
+    text-align: center;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.stack .array-bar {
+    display: inline;
+}
+
+.stack {
+    background-color: green;
+    margin: 0 auto;
+    width: fit-content;
+    margin-top: 45vh;
+}
+
+.array-bar {
+    background-color: red;
+    float: left;
+    width: 0.5vw;
+    text-align: center;
+
+}
