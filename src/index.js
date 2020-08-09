@@ -40,11 +40,13 @@ class SortingVisualizer extends React.Component {
         this.resetSelectedValues = this.resetSelectedValues.bind(this);
         this.update = this.update.bind(this);
 
-        this.state = {array: [1,3,2,9,10,12,3,45,3,70], arraySize: 100, minQuantity: 1, maxQuantity: 70, sortingSpeed: 50, resetSpeed: 1}
+        this.state = {array: [1,3,2,9,10,12,3,45,3,70], arraySize: 75, minQuantity: 1, maxQuantity: 70, sortingSpeed: 50, resetSpeed: 1}
         this.shouldStop = false;
         this.status = "";
         this.selectedValues = [];
         this.swappedValues = [];
+        this.colorBegin = 100;
+        this.colorMultiplier = 2;
         
     }
 
@@ -84,6 +86,20 @@ class SortingVisualizer extends React.Component {
             if(i === this.state.arraySize - 2) {
                 this.status = "";
             }
+            if(i % 12 == 0) {
+                this.shuffleFlip(this.state.array);
+                this.colorBegin = Math.random() * 360;
+                this.colorMultiplier = 1 + Math.random();
+            }
+        }
+    }
+
+    async shuffleFlip(arr, i) {
+        for(let i = 0; i < arr.length; ++i) {
+            let max = this.state.maxQuantity;
+            let min = this.state.minQuantity;
+            let randomizedValue = Math.floor(Math.random() * (max + 1 - min) + min);
+            arr[i] = randomizedValue;
         }
     }
 
@@ -167,9 +183,9 @@ class SortingVisualizer extends React.Component {
                     <h1 id = "status">{this.status}</h1>
                     <ul className = "stack">
                         {array.map((quantity, idx) => {
-                            let backgroundColor = "hsla(" + (100+quantity*2).toString() + ", 100%, 50%, 1)";
+                            let backgroundColor = "hsla(" + (this.colorBegin+quantity*this.colorMultiplier).toString() + ", 100%, 50%, 1)";
                             if(this.selectedValues[idx] === 1) {
-                                backgroundColor = "hsla(0, 100%, 50%, 1)"
+                                backgroundColor = "hsla(" + (this.colorBegin -100).toString() + ", 100%, 50%, 1)"
                             }
                             const style = {
                                 height: quantity.toString() + "vh",
