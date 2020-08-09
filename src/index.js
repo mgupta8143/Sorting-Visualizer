@@ -9,6 +9,7 @@ import {selectionSort} from './sortingAlgorithms/selectionSort.js';
 import {heapSort, heapify, maxHeapify} from './sortingAlgorithms/heapSort.js';
 import {mergeWrapper, mergeSort, merge} from './sortingAlgorithms/mergeSort.js';
 import {cocktailSort} from "./sortingAlgorithms/cocktailSort.js";
+import {pancakeSort, flip} from "./sortingAlgorithms/pancakeSort.js";
 
 class SortingVisualizer extends React.Component {
     constructor(props) {
@@ -28,6 +29,8 @@ class SortingVisualizer extends React.Component {
         this.heapify = heapify.bind(this);
         this.maxHeapify = maxHeapify.bind(this);
         this.cocktailSort = cocktailSort.bind(this);
+        this.pancakeSort = pancakeSort.bind(this);
+        this.flip = flip.bind(this);
     
 
         this.resetArray = this.resetArray.bind(this);
@@ -148,6 +151,9 @@ class SortingVisualizer extends React.Component {
                         </li>
                         <li>
                             <button class="btn btn-outline-primary btn-block" onClick = {this.cocktailSort}>Cocktail Sort</button>
+                        </li>
+                        <li>
+                            <button class="btn btn-outline-primary btn-block" onClick = {this.pancakeSort}>Pancake Sort</button>
                         </li>
                         <li>
                             <button class="btn btn-outline-info btn-block" onClick = {this.resetArray}>Reset Array</button>
