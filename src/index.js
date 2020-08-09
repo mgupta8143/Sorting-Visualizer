@@ -8,6 +8,7 @@ import {radixSort} from './sortingAlgorithms/radixSort.js';
 import {selectionSort} from './sortingAlgorithms/selectionSort.js';
 import {heapSort, heapify, maxHeapify} from './sortingAlgorithms/heapSort.js';
 import {mergeWrapper, mergeSort, merge} from './sortingAlgorithms/mergeSort.js';
+import {cocktailSort} from "./sortingAlgorithms/cocktailSort.js";
 
 class SortingVisualizer extends React.Component {
     constructor(props) {
@@ -26,6 +27,7 @@ class SortingVisualizer extends React.Component {
         this.heapSort = heapSort.bind(this);
         this.heapify = heapify.bind(this);
         this.maxHeapify = maxHeapify.bind(this);
+        this.cocktailSort = cocktailSort.bind(this);
     
 
         this.resetArray = this.resetArray.bind(this);
@@ -35,10 +37,11 @@ class SortingVisualizer extends React.Component {
         this.resetSelectedValues = this.resetSelectedValues.bind(this);
         this.update = this.update.bind(this);
 
-        this.state = {array: [1,3,2,9,10,12,3,45,3,70], arraySize: 50, minQuantity: 1, maxQuantity: 70, sortingSpeed: 50, resetSpeed: 1}
+        this.state = {array: [1,3,2,9,10,12,3,45,3,70], arraySize: 100, minQuantity: 1, maxQuantity: 70, sortingSpeed: 50, resetSpeed: 1}
         this.shouldStop = false;
         this.status = "";
         this.selectedValues = [];
+        this.swappedValues = [];
         
     }
 
@@ -142,6 +145,9 @@ class SortingVisualizer extends React.Component {
                         </li>
                         <li>
                             <button class="btn btn-outline-primary btn-block" onClick = {this.mergeWrapper}>Merge Sort</button>
+                        </li>
+                        <li>
+                            <button class="btn btn-outline-primary btn-block" onClick = {this.cocktailSort}>Cocktail Sort</button>
                         </li>
                         <li>
                             <button class="btn btn-outline-info btn-block" onClick = {this.resetArray}>Reset Array</button>
