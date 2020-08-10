@@ -1,4 +1,5 @@
 export async function selectionSort() {
+    this.shouldStop = false;
     let arr = this.state.array;
     if(this.checkSorted(arr))
         return;
@@ -7,8 +8,7 @@ export async function selectionSort() {
         let minIdx = getMinIndex(arr, i);
         this.swap(arr, minIdx, i);
         if(this.shouldStop === true) {
-            this.shouldStop = false;
-            break;
+            return this.stopSort(arr);
         }
         await this.update(arr, [minIdx, i], 100);
         this.setState({array:arr});

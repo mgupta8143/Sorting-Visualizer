@@ -30,23 +30,23 @@ function largestNum(arr) {
 }
 
 export async function radixSort() {
+    this.shouldStop = false;
     let arr  = this.state.array;
     let maxLength = largestNum(arr);
     for (let i = 0; i < maxLength; ++i) {
         let buckets = Array.from({ length: 10 }, () => []);
         for (let j = 0; j < arr.length; ++j) {
             if(this.shouldStop === true) {
-                break;
+                return this.stopState(arr);
             }
             let num = getDigit(arr[j], i);
             if (num !== undefined)
               buckets[num].push(arr[j]);
         };
-        if(this.shouldStop === true) {
-            this.shouldStop =  false;
-            break;
-        }
         arr = buckets.flat();
+        if(this.shouldStop === true) {
+            return this.stopState(arr);
+        }
         await this.update(arr, [], 30000)
         this.setState({array:arr});
     };

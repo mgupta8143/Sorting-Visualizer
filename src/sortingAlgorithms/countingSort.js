@@ -1,5 +1,6 @@
 export async function countingSort() {
     this.resetSelectedValues();
+    this.shouldStop = false;
     let arr = this.state.array;
     let min = this.state.minQuantity;
     let max = this.state.maxQuantity;
@@ -12,19 +13,15 @@ export async function countingSort() {
         count[arr[i]] += 1;
     }
     for(let i = min; i <= max; ++i) {
-        if(this.stopState === true) {
-            this.stopState = false;
-            break;
-        }
         while(count[i] > 0) {
+            if(this.shouldStop === true) {
+                return this.stopSort(arr)
+            }
             arr[j] = i;
             await this.update(arr, [j], 50);
             this.setState({array:arr});
             ++j;
             --count[i];
-            if(this.stopState === true) {
-                break;
-            }
         }
     }
     return arr

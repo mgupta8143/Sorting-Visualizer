@@ -40,7 +40,7 @@ class SortingVisualizer extends React.Component {
         this.resetSelectedValues = this.resetSelectedValues.bind(this);
         this.update = this.update.bind(this);
 
-        this.state = {array: [1,3,2,9,10,12,3,45,3,70], arraySize: 75, minQuantity: 1, maxQuantity: 70, sortingSpeed: 50, resetSpeed: 1}
+        this.state = {array: [1,3,2,9,10,12,3,45,3,70], arraySize: 75, minQuantity: 1, maxQuantity: 70, sortingSpeed: 50, resetSpeed: 1, changer: true}
         this.shouldStop = false;
         this.status = "";
         this.selectedValues = [];
@@ -50,7 +50,19 @@ class SortingVisualizer extends React.Component {
         
     }
 
+    forceARender() {
+        this.setState({changer: !this.state.changer});
+    }
+
+    stopSort(arr, bool = false) {
+        this.status = "";
+        this.resetSelectedValues();
+        this.shouldStop = bool;
+        return arr;
+    }
+
     resetSelectedValues() {
+        this.forceARender();
         this.selectedValues = [];
         for(let i = 0; i < this.arraySize; ++i) {
             this.selectedValues.push(0);

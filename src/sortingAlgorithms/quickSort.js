@@ -1,4 +1,5 @@
 export async function quickWrapper() {
+    this.shouldStop = false;
     let arr = this.state.array;
     this.resetSelectedValues();
     this.setState({array: await this.quickSort(arr, 0, arr.length -1)});
@@ -7,6 +8,8 @@ export async function quickWrapper() {
 export async function quickSort(arr, left, right) {
     if (arr.length > 1) {
         let index = await this.partition(arr, left, right);
+        if(this.shouldStop === true)
+            return this.stopSort(arr, true);
         if (this.shouldStop === false) {
             if (left < index - 1) {
                 this.quickSort(arr, left, index - 1);

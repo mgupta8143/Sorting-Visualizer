@@ -1,12 +1,12 @@
 export async function pancakeSort() {
-    //Reverse from 0 to i 
-    //Find the biggest element swap it back
-    //Find the sammlest element swap it back
-    //
+    this.shouldStop = false;
     let arr = this.state.array;
     let start = 0;
     let end = arr.length - 1;
     while(end >= 0) {
+        if(this.shouldStop) {
+            return this.stopSort(arr, true);
+        }
         let maxIdx = findBiggestElement(arr, start, end);
         arr = await this.flip(arr, maxIdx);
         arr = await this.flip(arr, end);
@@ -17,7 +17,13 @@ export async function pancakeSort() {
 
 export async function flip(arr, i) {
     let start = 0;
+    if(this.shouldStop) {
+        return this.stopSort(arr,true);
+    }
     while(start < i) {
+        if(this.shouldStop) {
+            return this.stopSort(arr, true);
+        }
         this.swap(arr, i, start);
         await this.update(arr, [start, i], 100);
         ++start;

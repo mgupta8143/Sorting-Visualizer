@@ -15,30 +15,31 @@ export async function heapify(arr, n, i) {
         await this.heapify(arr, n, max);
     }
 
-    if(this.shouldStop === true) {
-        this.status = "";
-        this.resetSelectedValues();
-        this.shouldStop = false;
-    }
     await this.update(arr, [max, i], 1000);
 }
 
 export async function maxHeapify(arr) {
     for(let i = Math.floor(arr.length/2); i >= 0; --i) {
         await this.heapify(arr, arr.length, i);
+        if(this.shouldStop) {
+            this.resetSelectedValues()
+            this.status = "";
+            return arr;
+        }
     }
     return arr;
 }
 
 export async function heapSort() {
     let arr = this.state.array;
+    this.shouldStop = false;
     arr = await this.maxHeapify(arr);
     for(let n = arr.length-1; n >= 0; --n) {
-        if(this.stopState === true) {
+        if(this.shouldStop) {
+            this.shouldStop = false;
+            this.resetSelectedValues()
             this.status = "";
-            this.resetSelectedValues();
-            this.stopState = false;
-            break;
+            return arr;
         }
         this.swap(arr, n, 0);
         await this.heapify(arr, n, 0);
