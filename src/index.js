@@ -86,7 +86,7 @@ class SortingVisualizer extends React.Component {
             if(i === this.state.arraySize - 2) {
                 this.status = "";
             }
-            if(i % 12 == 0) {
+            if(i % 12 === 0) {
                 this.shuffleFlip(this.state.array);
                 this.colorBegin = Math.random() * 360;
                 this.colorMultiplier = 1 + Math.random();
@@ -136,11 +136,32 @@ class SortingVisualizer extends React.Component {
 
     render() {
         let array = this.state.array;
+        const algorithms =  [
+            { algo: this.insertionSort, name: "Insertion Sort" },
+            { algo: this.bubbleSort, name: "Bubble Sort" },
+            { algo: this.quickWrapper, name: "Quick Sort" },
+            { algo: this.countingSort, name: "Counting Sort" },
+            { algo: this.radixSort, name: "Radix Sort" },
+            { algo: this.selectionSort, name: "Selection Sort" },
+            { algo: this.heapSort, name: "Heap Sort" },
+            { algo: this.mergeWrapper, name: "Merge Sort" },
+            { algo: this.cocktailSort, name: "Cocktail Sort" },
+            { algo: this.pancakeSort, name: "Pancake Sort" },
+          ];
         return (
             <div class = "row content-wrapper">
                 <div class = "col-2" id = "navbar">
                     <ul id = "sortList">
                         <input type="range" min="1" max={this.state.arraySize/2} value={this.state.sortingSpeed}  onChange = {this.handleSpeedChange} class="slider" id="myRange"></input>
+                        {
+                            //Special Thanks to gimmeslack12 for suggesting this MASSIVE improvement
+                        algorithms.map((a) => (
+                            <li key={a.name}>
+                            <button class="btn btn-outline-info btn-block" onClick={a.algo}>
+                                {a.name}
+                            </button>
+                            </li>
+                        ))}
                         <li>
                             <button class="btn btn-outline-primary btn-block" onClick = {this.insertionSort}>Insertion Sort</button>
                         </li>
