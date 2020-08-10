@@ -154,7 +154,7 @@ class SortingVisualizer extends React.Component {
                     <ul id = "sortList">
                         <input type="range" min="1" max={this.state.arraySize/2} value={this.state.sortingSpeed}  onChange = {this.handleSpeedChange} class="slider" id="myRange"></input>
                         {
-                            //Special Thanks to gimmeslack12 for suggesting this MASSIVE improvement
+                            //Special Thanks to gimmeslack12 for suggesting this MASSIVE improvement!!!
                         algorithms.map((a) => (
                             <li key={a.name}>
                             <button class="btn btn-outline-info btn-block" onClick={a.algo}>
@@ -162,36 +162,6 @@ class SortingVisualizer extends React.Component {
                             </button>
                             </li>
                         ))}
-                        <li>
-                            <button class="btn btn-outline-primary btn-block" onClick = {this.insertionSort}>Insertion Sort</button>
-                        </li>
-                        <li>
-                            <button class="btn btn-outline-primary btn-block" onClick = {this.bubbleSort}>Bubble Sort</button>
-                        </li>
-                        <li>
-                            <button class="btn btn-outline-primary btn-block" onClick = {this.quickWrapper}>Quick Sort</button>
-                        </li>
-                        <li>
-                            <button class="btn btn-outline-primary btn-block" onClick = {this.countingSort}>Counting Sort</button>
-                        </li>
-                        <li>
-                            <button class="btn btn-outline-primary btn-block" onClick = {this.radixSort}>Radix Sort</button>
-                        </li>
-                        <li>
-                            <button class="btn btn-outline-primary btn-block" onClick = {this.selectionSort}>Selection Sort</button>
-                        </li>
-                        <li>
-                            <button class="btn btn-outline-primary btn-block" onClick = {this.heapSort}>Heap Sort</button>
-                        </li>
-                        <li>
-                            <button class="btn btn-outline-primary btn-block" onClick = {this.mergeWrapper}>Merge Sort</button>
-                        </li>
-                        <li>
-                            <button class="btn btn-outline-primary btn-block" onClick = {this.cocktailSort}>Cocktail Sort</button>
-                        </li>
-                        <li>
-                            <button class="btn btn-outline-primary btn-block" onClick = {this.pancakeSort}>Pancake Sort</button>
-                        </li>
                         <li>
                             <button class="btn btn-outline-info btn-block" onClick = {this.resetArray}>Reset Array</button>
                         </li>
