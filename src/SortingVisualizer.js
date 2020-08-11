@@ -12,6 +12,7 @@ import {pancakeSort, flip} from "./sortingAlgorithms/pancakeSort.js";
 
 export default class SortingVisualizer extends React.Component {
     constructor(props) {
+        /*Changed Format of Sorting Visualizer */
         super(props);
         this.mergeWrapper = mergeWrapper.bind(this);
         this.mergeSort = mergeSort.bind(this);
