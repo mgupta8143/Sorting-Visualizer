@@ -4,6 +4,7 @@ export async function cocktailSort() {
     let arr = this.state.array;
     let start = 0;
     let end = arr.length;
+    this.numOperations = 3;
     this.shouldStop = false;
     for(let n = 0; n < arr.length; n++) {
         if(n % 2 === 0)  {
@@ -11,26 +12,32 @@ export async function cocktailSort() {
             while(idx !== end - 1) {
                 if(arr[idx + 1] < arr[idx]) {
                     this.swap(arr, idx, idx + 1);
+                    this.numOperations += 3
                     await this.update(arr, [idx, idx+1], 100);
                     if(this.shouldStop)
                         return this.stopSort(arr);
                 }
                 ++idx;
+                this.numOperations += 1;
             }
             --end;
+            this.numOperations += 1;
         }
         else {
             let idx = end - 1;
             while(idx !== start) {
                 if(arr[idx - 1] > arr[idx]) {
                     this.swap(arr, idx, idx-1);
+                    this.numOperations += 3;
                     await this.update(arr, [idx, idx-1], 100);
                     if(this.shouldStop)
                         return this.stopSort(arr);
                 }
                 --idx;
+                this.numOperations += 1;
             }
             ++start;
+            this.numOperations += 1;
         }
     }
     return arr;

@@ -29,8 +29,17 @@ body {
     padding: 0;
 }
 
+#operation {
+    position: absolute;
+    left: 35vw;
+    color: white;
+}
+.barList {
+    display:inline
+}
 .stack .array-bar {
     display: inline;
+    list-style-type: none;
 }
 
 .stack {
@@ -39,6 +48,7 @@ body {
     width: fit-content;
     margin-top: 45vh;
 }
+
 
 .array-bar {
     background-color: red;

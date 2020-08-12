@@ -1,4 +1,5 @@
 export async function bubbleSort() {
+    this.numOperations = 0;
     let arr = this.state.array;
     this.shouldStop = false;
     this.resetSelectedValues();
@@ -10,6 +11,7 @@ export async function bubbleSort() {
                     return this.stopSort();
                 this.swap(arr, j, j+1)
                 await this.update(arr, [j],1);
+                this.numOperations += 4;  //3 for sorting, 1 for comparison
             }
         }
         if(i >= arr.length - 3) {

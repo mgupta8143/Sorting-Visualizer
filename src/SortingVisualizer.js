@@ -1,14 +1,15 @@
 import React from 'react';
-import {insertionSort} from './sortingAlgorithms/insertionSort.js';
-import {bubbleSort} from './sortingAlgorithms/bubbleSort.js';
-import {quickSort, quickWrapper, partition} from './sortingAlgorithms/quickSort.js';
-import {countingSort} from './sortingAlgorithms/countingSort.js';
-import {radixSort} from './sortingAlgorithms/radixSort.js';
-import {selectionSort} from './sortingAlgorithms/selectionSort.js';
-import {heapSort, heapify, maxHeapify} from './sortingAlgorithms/heapSort.js';
-import {mergeWrapper, mergeSort, merge} from './sortingAlgorithms/mergeSort.js';
-import {cocktailSort} from "./sortingAlgorithms/cocktailSort.js";
-import {pancakeSort, flip} from "./sortingAlgorithms/pancakeSort.js";
+import {insertionSort} from './sortingAlgorithms/insertionSort';
+import {bubbleSort} from './sortingAlgorithms/bubbleSort';
+import {quickSort, quickWrapper, partition} from './sortingAlgorithms/quickSort';
+import {countingSort} from './sortingAlgorithms/countingSort';
+import {getDigit, getNumDigits, largestNum, radixSort} from './sortingAlgorithms/radixSort';
+import {selectionSort} from './sortingAlgorithms/selectionSort';
+import {heapSort, heapify, maxHeapify} from './sortingAlgorithms/heapSort';
+import {mergeWrapper, mergeSort, merge} from './sortingAlgorithms/mergeSort';
+import {cocktailSort} from "./sortingAlgorithms/cocktailSort";
+import {pancakeSort, flip} from "./sortingAlgorithms/pancakeSort";
+import ArrayBar from "./ArrayBar";
 
 export default class SortingVisualizer extends React.Component {
     constructor(props) {
@@ -24,6 +25,9 @@ export default class SortingVisualizer extends React.Component {
         this.partition = partition.bind(this);
         this.countingSort = countingSort.bind(this);
         this.radixSort = radixSort.bind(this);
+        this.getDigit = getDigit.bind(this);
+        this.getNumDigits = getNumDigits.bind(this);
+        this.largestNum = largestNum.bind(this);
         this.selectionSort = selectionSort.bind(this);
         this.heapSort = heapSort.bind(this);
         this.heapify = heapify.bind(this);
@@ -39,14 +43,27 @@ export default class SortingVisualizer extends React.Component {
         this.resetSelectedValues = this.resetSelectedValues.bind(this);
         this.update = this.update.bind(this);
 
-        this.state = {array: [1,3,2,9,10,12,3,45,3,70], arraySize: 75, minQuantity: 1, maxQuantity: 70, sortingSpeed: 50, resetSpeed: 1, changer: true}
+        this.state = {array: [], arraySize: 75, minQuantity: 1, maxQuantity: 70, sortingSpeed: 50, resetSpeed: 1, changer: true}
         this.shouldStop = false;
         this.status = "";
         this.selectedValues = [];
         this.swappedValues = [];
         this.colorBegin = 100;
         this.colorMultiplier = 2;
+        this.numOperations = 0;
+        this.intializeArray();
         
+    }
+
+    intializeArray = () => {
+        let tempArray = []
+        for(let i = 0; i < this.state.arraySize; i++) {
+            let max = this.state.maxQuantity;
+            let min = this.state.minQuantity;
+            let randomizedValue = Math.floor(Math.random() * (max + 1 - min) + min);
+            tempArray.push(randomizedValue);
+        }
+        this.state.array = tempArray;
     }
 
     forceARender() {
@@ -87,6 +104,7 @@ export default class SortingVisualizer extends React.Component {
         this.stopState();
         this.status = "Resetting...";
         let tempArray = [];
+        this.numOperations = 0;
         for(let i = 0; i < this.state.arraySize; ++i) {
             let max = this.state.maxQuantity;
             let min = this.state.minQuantity;
@@ -183,6 +201,7 @@ export default class SortingVisualizer extends React.Component {
                 </div>
                 <div class = "col-10" id = "visualizer">
                     <h1 id = "status">{this.status}</h1>
+                    <h1 id = "operation">{"Operations: " + this.numOperations.toString()}</h1>
                     <ul className = "stack">
                         {array.map((quantity, idx) => {
                             let highlightBar = (e) => {
@@ -201,7 +220,7 @@ export default class SortingVisualizer extends React.Component {
                                 width: (70/this.state.arraySize).toString() + "vw",
                                 backgroundColor: backgroundColor
                             };
-                            return <div onMouseEnter = {highlightBar} onMouseLeave = {unhighlightBar} style={style} className = "array-bar" key = {idx}></div>
+                            return <ArrayBar onMouseEnter = {highlightBar} onMouseLeave = {unhighlightBar} style={style} className = "array-bar" key = {idx}></ArrayBar>
                         })}
                     </ul>
                 </div>
