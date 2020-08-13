@@ -32,6 +32,7 @@ body {
 #operation {
     position: absolute;
     left: 35vw;
+    font-size: 2vw;
     color: white;
 }
 .barList {
@@ -43,9 +44,10 @@ body {
 }
 
 .stack {
-    background-color: green;
-    margin: 0 auto;
+    position: absolute;
+    padding:0;
     width: fit-content;
+    left: 8vw;
     margin-top: 45vh;
 }
 

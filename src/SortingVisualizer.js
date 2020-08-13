@@ -55,6 +55,30 @@ export default class SortingVisualizer extends React.Component {
         
     }
 
+    play(quantity) {
+      var playPromise = new Audio('../soundEffects/perc-chirpy.wav');
+      playPromise.volume = 0.1;
+      let rate = quantity/this.maxQuantity*16
+      if(isNaN(rate)) {
+          rate = 1;
+      }
+      playPromise.playbackRate = rate;
+      playPromise = playPromise.play();
+      if (playPromise !== undefined) {
+        playPromise
+          .then(_ => {
+            // Automatic playback started!
+            // Show playing UI.
+            console.log("audio played auto");
+          })
+          .catch(error => {
+            // Auto-play was prevented
+            // Show paused UI.
+            console.log("playback prevented");
+          });
+      }
+    }
+
     intializeArray = () => {
         let tempArray = []
         for(let i = 0; i < this.state.arraySize; i++) {
@@ -83,6 +107,7 @@ export default class SortingVisualizer extends React.Component {
         for(let i = 0; i < this.arraySize; ++i) {
             this.selectedValues.push(0);
         }
+
     }
 
     checkSorted(arr) {
@@ -121,6 +146,7 @@ export default class SortingVisualizer extends React.Component {
                 this.colorMultiplier = 1 + Math.random();
             }
         }
+        this.numOperations = 0;
     }
 
     async shuffleFlip(arr, i) {
@@ -179,6 +205,7 @@ export default class SortingVisualizer extends React.Component {
           ];
         return (
             <div class = "row content-wrapper">
+                                
                 <div class = "col-2" id = "navbar">
                     <ul id = "sortList">
                         <input type="range" min="1" max={this.state.arraySize/2} value={this.state.sortingSpeed}  onChange = {this.handleSpeedChange} class="slider" id="myRange"></input>
@@ -203,7 +230,8 @@ export default class SortingVisualizer extends React.Component {
                     <h1 id = "status">{this.status}</h1>
                     <h1 id = "operation">{"Operations: " + this.numOperations.toString()}</h1>
                     <ul className = "stack">
-                        {array.map((quantity, idx) => {
+                        {
+                        array.map((quantity, idx) => {
                             let highlightBar = (e) => {
                                 e.target.style.background = "hsla(" + (this.colorBegin -100).toString() + ", 100%, 50%, 1)";
                             }
@@ -213,6 +241,7 @@ export default class SortingVisualizer extends React.Component {
                             let backgroundColor = "hsla(" + (this.colorBegin+quantity*this.colorMultiplier).toString() + ", 100%, 50%, 1)";
                             if(this.selectedValues[idx] === 1) {
                                 backgroundColor = "hsla(" + (this.colorBegin -100).toString() + ", 100%, 50%, 1)"
+                                this.play(quantity);
                             }
                             const style = {
                                 height: quantity.toString() + "vh",
