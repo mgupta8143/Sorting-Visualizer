@@ -9,6 +9,7 @@ import {heapSort, heapify, maxHeapify} from './sortingAlgorithms/heapSort';
 import {mergeWrapper, mergeSort, merge} from './sortingAlgorithms/mergeSort';
 import {cocktailSort} from "./sortingAlgorithms/cocktailSort";
 import {pancakeSort, flip} from "./sortingAlgorithms/pancakeSort";
+import {bogoSort, shuffle} from "./sortingAlgorithms/bogoSort";
 import ArrayBar from "./ArrayBar";
 
 export default class SortingVisualizer extends React.Component {
@@ -34,6 +35,8 @@ export default class SortingVisualizer extends React.Component {
         this.maxHeapify = maxHeapify.bind(this);
         this.cocktailSort = cocktailSort.bind(this);
         this.pancakeSort = pancakeSort.bind(this);
+        this.bogoSort = bogoSort.bind(this);
+        this.shuffle = shuffle.bind(this);
         this.flip = flip.bind(this);
     
         this.resetArray = this.resetArray.bind(this);
@@ -98,6 +101,7 @@ export default class SortingVisualizer extends React.Component {
         this.status = "";
         this.resetSelectedValues();
         this.shouldStop = bool;
+        this.numOperations = 0;
         return arr;
     }
 
@@ -202,6 +206,7 @@ export default class SortingVisualizer extends React.Component {
             { algo: this.mergeWrapper, name: "Merge Sort" },
             { algo: this.cocktailSort, name: "Cocktail Sort" },
             { algo: this.pancakeSort, name: "Pancake Sort" },
+            { algo: this.bogoSort, name: "Bogo Sort"}
           ];
         return (
             <div class = "row content-wrapper">
