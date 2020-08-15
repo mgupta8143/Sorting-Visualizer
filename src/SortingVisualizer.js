@@ -10,6 +10,7 @@ import {mergeWrapper, mergeSort, merge} from './sortingAlgorithms/mergeSort';
 import {cocktailSort} from "./sortingAlgorithms/cocktailSort";
 import {pancakeSort, flip} from "./sortingAlgorithms/pancakeSort";
 import {bogoSort, shuffle} from "./sortingAlgorithms/bogoSort";
+import {stoogeSort, stoogeWrapper} from "./sortingAlgorithms/stoogeSort";
 import ArrayBar from "./ArrayBar";
 
 export default class SortingVisualizer extends React.Component {
@@ -36,6 +37,8 @@ export default class SortingVisualizer extends React.Component {
         this.cocktailSort = cocktailSort.bind(this);
         this.pancakeSort = pancakeSort.bind(this);
         this.bogoSort = bogoSort.bind(this);
+        this.stoogeSort = stoogeSort.bind(this);
+        this.stoogeWrapper = stoogeWrapper.bind(this);
         this.shuffle = shuffle.bind(this);
         this.flip = flip.bind(this);
     
@@ -46,7 +49,7 @@ export default class SortingVisualizer extends React.Component {
         this.resetSelectedValues = this.resetSelectedValues.bind(this);
         this.update = this.update.bind(this);
 
-        this.state = {array: [], arraySize: 75, minQuantity: 1, maxQuantity: 70, sortingSpeed: 50, resetSpeed: 1, changer: true}
+        this.state = {array: [], arraySize: 40, minQuantity: 1, maxQuantity: 70, sortingSpeed: 50, resetSpeed: 1, changer: true}
         this.shouldStop = false;
         this.status = "";
         this.selectedValues = [];
@@ -58,7 +61,7 @@ export default class SortingVisualizer extends React.Component {
         
     }
 
-    play(quantity) {
+    /*play(quantity) {
       var playPromise = new Audio('../soundEffects/perc-chirpy.wav');
       playPromise.volume = 0.1;
       let rate = quantity/this.maxQuantity*16
@@ -80,7 +83,7 @@ export default class SortingVisualizer extends React.Component {
             console.log("playback prevented");
           });
       }
-    }
+    } */
 
     intializeArray = () => {
         let tempArray = []
@@ -206,7 +209,8 @@ export default class SortingVisualizer extends React.Component {
             { algo: this.mergeWrapper, name: "Merge Sort" },
             { algo: this.cocktailSort, name: "Cocktail Sort" },
             { algo: this.pancakeSort, name: "Pancake Sort" },
-            { algo: this.bogoSort, name: "Bogo Sort"}
+            { algo: this.bogoSort, name: "Bogo Sort"}, 
+            { algo: this.stoogeWrapper, name: "Stooge Sort"}
           ];
         return (
             <div class = "row content-wrapper">
@@ -246,7 +250,7 @@ export default class SortingVisualizer extends React.Component {
                             let backgroundColor = "hsla(" + (this.colorBegin+quantity*this.colorMultiplier).toString() + ", 100%, 50%, 1)";
                             if(this.selectedValues[idx] === 1) {
                                 backgroundColor = "hsla(" + (this.colorBegin -100).toString() + ", 100%, 50%, 1)"
-                                this.play(quantity);
+                                //this.play(quantity);
                             }
                             const style = {
                                 height: quantity.toString() + "vh",

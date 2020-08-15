@@ -1,5 +1,4 @@
 export async function selectionSort() {
-    this.play();
     this.numOperations = 0;
     this.shouldStop = false;
     let arr = this.state.array;
